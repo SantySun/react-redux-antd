@@ -2,24 +2,18 @@ import React, { Component } from 'react';
 import { Form, Input, Button } from 'antd';
 import { userLogin } from '../actions/index';
 import { connect } from "react-redux";
+import users from '../users.json';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 }
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
 
 function mapDispatchToProps(dispatch) {
   return {
     userLogin: userinfo => dispatch(userLogin(userinfo))
   };
 }
-const mapStateToProps = state => {
-  return { to_do: state.to_do };
-};
+// const mapStateToProps = state => {
+//   return { to_do: state.to_do };
+// };
 
 class login extends Component {
   constructor(props) {
@@ -28,17 +22,28 @@ class login extends Component {
     this.onFinishFailed = this.onFinishFailed.bind(this);
   }
   onFinish(values) {
-    this.props.userLogin(values);
-    if (!this.props.to_do.length) alert("Invalid username or password!");
+    if (users[values.username]) {
+      if (users[values.username]["password"] === values.password) {
+        const userInfo = { username: values.username, to_do: users[values.username]["to_do"] }
+        this.props.userLogin(userInfo);
+      }
+      else {
+        alert("Invalid password!");
+      }
+    }
+    else {
+      alert("Invalid user name!");
+    }
+
   }
   onFinishFailed(error) {
     console.log(error);
   }
   render() {
+
     return (
       <div className="container border mt-5">
         <Form
-          {...layout}
           name="basic"
           initialValues={{ remember: true }}
           onFinish={this.onFinish}
@@ -61,7 +66,7 @@ class login extends Component {
             <Input.Password />
           </Form.Item>
 
-          <Form.Item {...tailLayout}>
+          <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
         </Button>
@@ -73,7 +78,8 @@ class login extends Component {
 }
 
 const Login = connect(
-  mapStateToProps,
+  // mapStateToProps,
+  null,
   mapDispatchToProps
 )(login);
 
