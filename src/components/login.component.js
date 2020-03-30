@@ -17,20 +17,19 @@ function mapDispatchToProps(dispatch) {
     userLogin: userinfo => dispatch(userLogin(userinfo))
   };
 }
+const mapStateToProps = state => {
+  return { to_do: state.to_do };
+};
 
 class login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: "",
-      password: ""
-    };
     this.onFinish = this.onFinish.bind(this);
     this.onFinishFailed = this.onFinishFailed.bind(this);
   }
   onFinish(values) {
     this.props.userLogin(values);
-    this.setState({ user: values.username, password: values.password });
+    if (!this.props.to_do.length) alert("Invalid username or password!");
   }
   onFinishFailed(error) {
     console.log(error);
@@ -38,7 +37,7 @@ class login extends Component {
   render() {
     return (
       <div className="container border mt-5">
-        <Form style={{ margin: "mx-auto" }}
+        <Form
           {...layout}
           name="basic"
           initialValues={{ remember: true }}
@@ -74,8 +73,8 @@ class login extends Component {
 }
 
 const Login = connect(
-  null,
-  mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(login);
 
 export default Login;
