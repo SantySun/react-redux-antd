@@ -31,12 +31,14 @@ class login extends Component {
       }
       else {
         // alert("Invalid password!");
-        this.setState({ wrongCredential: true })
+        this.setState({ wrongCredential: true });
+        this.props.userLogin({ username: null, to_do: [] });
       }
     }
     else {
       // alert("Invalid user name!");
-      this.setState({ wrongCredential: true })
+      this.setState({ wrongCredential: true });
+      this.props.userLogin({ username: null, to_do: [] });
     }
   }
   onFinishFailed(error) {
