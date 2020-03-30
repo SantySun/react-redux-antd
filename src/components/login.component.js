@@ -22,12 +22,14 @@ class login extends Component {
     this.handleCancel = this.handleCancel.bind(this);
     this.handleOk = this.handleOk.bind(this);
     this.state = { wrongCredential: false };
+    this.formRef = React.createRef();
   }
   onFinish(values) {
     if (users[values.username]) {
       if (users[values.username]["password"] === values.password) {
         const userInfo = { username: values.username, to_do: users[values.username]["to_do"] }
         this.props.userLogin(userInfo);
+        this.formRef.current.resetFields();
       }
       else {
         // alert("Invalid password!");
@@ -60,9 +62,10 @@ class login extends Component {
 
   render() {
     return (
-      <div className="container border mt-5">
+      <div>
         <Form
-          id="loginForm"
+          className="container border mt-5"
+          ref={this.formRef}
           name="basic"
           initialValues={{ remember: true }}
           onFinish={this.onFinish}
@@ -86,20 +89,18 @@ class login extends Component {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-        </Button>
+            <Button type="primary" htmlType="submit">Submit</Button>
           </Form.Item>
+          <Modal
+            title="Attention: Wrong Credential!"
+            visible={this.state.wrongCredential}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+          >
+            <p>You have entered wrong Username or Password!</p>
+          </Modal>
         </Form>
-        <Modal
-          title="Attention: Wrong Credential!"
-          visible={this.state.wrongCredential}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          <p>You have entered wrong Username or Password!</p>
-        </Modal>
-      </div>
+      </div >
     );
   }
 }
