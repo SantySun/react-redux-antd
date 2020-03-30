@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Modal } from 'antd';
 import { userLogin } from '../actions/index';
 import { connect } from "react-redux";
 import users from '../users.json';
@@ -14,12 +14,14 @@ function mapDispatchToProps(dispatch) {
 // const mapStateToProps = state => {
 //   return { to_do: state.to_do };
 // };
-
 class login extends Component {
   constructor(props) {
     super(props);
     this.onFinish = this.onFinish.bind(this);
     this.onFinishFailed = this.onFinishFailed.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleOk = this.handleOk.bind(this);
+    this.state = { wrongCredential: false };
   }
   onFinish(values) {
     if (users[values.username]) {
@@ -28,22 +30,37 @@ class login extends Component {
         this.props.userLogin(userInfo);
       }
       else {
-        alert("Invalid password!");
+        // alert("Invalid password!");
+        this.setState({ wrongCredential: true })
       }
     }
     else {
-      alert("Invalid user name!");
+      // alert("Invalid user name!");
+      this.setState({ wrongCredential: true })
     }
-
   }
   onFinishFailed(error) {
     console.log(error);
   }
-  render() {
 
+  handleOk = e => {
+    this.setState({
+      wrongCredential: false,
+    });
+  };
+
+  handleCancel = e => {
+    this.setState({
+      wrongCredential: false,
+    });
+  };
+
+
+  render() {
     return (
       <div className="container border mt-5">
         <Form
+          id="loginForm"
           name="basic"
           initialValues={{ remember: true }}
           onFinish={this.onFinish}
@@ -72,6 +89,14 @@ class login extends Component {
         </Button>
           </Form.Item>
         </Form>
+        <Modal
+          title="Attention: Wrong Credential!"
+          visible={this.state.wrongCredential}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <p>You have entered wrong Username or Password!</p>
+        </Modal>
       </div>
     );
   }
