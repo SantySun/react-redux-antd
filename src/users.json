@@ -1,0 +1,12 @@
+{
+  "santy": {
+    "name": "santy",
+    "password": "123456",
+    "to_do": ["to do task one - santy", "to do task two - santy"]
+  },
+  "jack": {
+    "name": "jack",
+    "password": "654321",
+    "to_do": ["jack's task one", "jack's task two"]
+  }
+}
