@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { List, Avatar } from 'antd';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const mapStateToProps = state => {
   return { to_do: state.to_do };
@@ -14,22 +16,33 @@ const mapStateToProps = state => {
 // );
 
 class ConnectedList extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = { data: [] }
+  }
+  componentDidMount() {
+    this.props.to_do.map(t => t = ({ title: t }))
+  }
   render() {
     return (
-      <ul>
-        {
-          this.props.to_do.map(el => (
-            <li key={el}>{el}</li>
-          ))
-        }
-      </ul>
+      <div className="border container mt-5">
+        <List
+          itemLayout="horizontal"
+          dataSource={this.props.to_do}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                title={item}
+              />
+            </List.Item>
+          )}
+        />
+      </div>
     );
   }
 }
 
-const List = connect(mapStateToProps)(ConnectedList);
+const ToDoList = connect(mapStateToProps)(ConnectedList);
 
-export default List;
+export default ToDoList;
