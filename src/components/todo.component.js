@@ -16,10 +16,10 @@ const mapStateToProps = state => {
 // );
 
 class ConnectedList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { data: [] }
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { data: [] }
+  // }
   componentDidMount() {
     this.props.to_do.map(t => t = ({ title: t }))
   }
