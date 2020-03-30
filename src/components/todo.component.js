@@ -32,7 +32,7 @@ class ConnectedList extends React.Component {
           renderItem={item => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                avatar={<Avatar src="https://www.jing.fm/clipimg/detail/135-1353096_simple-avatar-icon-person-icon-png-free-transparent.png" />}
                 title={item}
               />
             </List.Item>
