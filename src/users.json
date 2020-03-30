@@ -2,7 +2,20 @@
   "santy": {
     "name": "santy",
     "password": "123456",
-    "to_do": ["to do task one - santy", "to do task two - santy"]
+    "to_do": [
+      "to do task 1 - santy",
+      "to do task 2 - santy",
+      "to do task 3 - santy",
+      "to do task 4 - santy",
+      "to do task 5 - santy",
+      "to do task 6 - santy",
+      "to do task 7 - santy",
+      "to do task 8 - santy",
+      "to do task 9 - santy",
+      "to do task 10 - santy",
+      "to do task 11 - santy",
+      "to do task 12 - santy"
+    ]
   },
   "jack": {
     "name": "jack",

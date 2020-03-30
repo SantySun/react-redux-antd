@@ -21,6 +21,7 @@ class login extends Component {
     this.onFinishFailed = this.onFinishFailed.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleOk = this.handleOk.bind(this);
+    this.onReset = this.onReset.bind(this);
     this.state = { wrongCredential: false };
     this.formRef = React.createRef();
   }
@@ -45,6 +46,11 @@ class login extends Component {
   }
   onFinishFailed(error) {
     console.log(error);
+  }
+
+  onReset() {
+    this.formRef.current.resetFields();
+    this.props.userLogin({ username: null, to_do: [] });
   }
 
   handleOk = e => {
@@ -90,6 +96,7 @@ class login extends Component {
 
           <Form.Item>
             <Button type="primary" htmlType="submit">Submit</Button>
+            <Button className="ml-3" htmlType="button" onClick={this.onReset}>Reset</Button>
           </Form.Item>
           <Modal
             title="Attention: Wrong Credential!"
